@@ -24,9 +24,5 @@ Route::post('/send-otp', [UserAuthController::class, 'SendOTP']);
 Route::post('/verify-otp', [UserAuthController::class, 'VerifyOTP']);
 
 Route::post('/create-user', [UserAuthController::class, 'CreateUser'])->middleware(HasUser::class);
-
-Route::gorup(['middleware' => 'auth:sanctum'], function () {
-    
-    Route::post('/reset-password', [UserAuthController::class, 'ResetPassword']);
-    Route::post('/logout', [UserAuthController::class, 'LogoutUser']);
-});
+Route::post('/reset-password', [UserAuthController::class, 'ResetPassword'])->middleware('auth:sanctum');
+Route::post('/logout', [UserAuthController::class, 'LogoutUser'])->middleware('auth:sanctum');

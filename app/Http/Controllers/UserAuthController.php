@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendOTPMail;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -101,10 +102,15 @@ class UserAuthController extends Controller
             
             if (!$user) {
                 return response()->json(["status" => "faild", "message" => "invalid user"]);
+            } else if (Carbon::now() > $user->updated_at->addMinutes(3)) {
+
+                $user->update(['otp' => null]);
+                return response()->json(["status" => "faild", "message" => "time expired"]);
             }
 
             $token = $user->createToken('token')->plainTextToken;
             $user->update(['otp' => null]);
+            
             return response()->json(["status" => "success", "message" => "OTP verified successfull", "token" => $token]);
         } catch(Exception $ex) {
 

@@ -1,0 +1,1 @@
+<h2>Registration Page</h2>

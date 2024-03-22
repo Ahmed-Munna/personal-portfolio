@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserAuthController;
+use App\Http\Middleware\HasUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::view('/registration', 'Auth.registration');
+Route::view('/login', 'Auth.login')->name('login');
+Route::view('/forget-password', 'Auth.forget-password');
+
+Route::post('/login-user', [UserAuthController::class, 'LoginUser']);
+Route::post('/send-otp', [UserAuthController::class, 'SendOTP']);
+Route::post('/verify-otp', [UserAuthController::class, 'VerifyOTP']);
+
+Route::post('/create-user', [UserAuthController::class, 'CreateUser'])->middleware(HasUser::class);
+
+Route::gorup(['middleware' => 'auth:sanctum'], function () {
+    
+    Route::post('/reset-password', [UserAuthController::class, 'ResetPassword']);
+    Route::post('/logout', [UserAuthController::class, 'LogoutUser']);
 });

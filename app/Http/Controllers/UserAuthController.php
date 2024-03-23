@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendOTPMail;
+use App\Models\Profile;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -32,7 +33,9 @@ class UserAuthController extends Controller
 
             $token = User::where('email', '=', $request->input('email'))
                          ->first()->createToken('token')->plainTextToken;  
-
+            $userId = User::latest()->first()->id;
+            Profile::create([ 'user_id' =>  $userId]);
+                         
             return response()->json(["status" => "success", "message" => "User creation successful", "token" => $token]);
         } catch (Exception $ex) {
 

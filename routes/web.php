@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Middleware\HasUser;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,5 @@ Route::post('/verify-otp', [UserAuthController::class, 'VerifyOTP']);
 Route::post('/create-user', [UserAuthController::class, 'CreateUser'])->middleware(HasUser::class);
 Route::post('/reset-password', [UserAuthController::class, 'ResetPassword'])->middleware('auth:sanctum');
 Route::post('/logout', [UserAuthController::class, 'LogoutUser'])->middleware('auth:sanctum');
+
+Route::get('/profile', [ProfileController::class, 'UserProfile'])->middleware('auth:sanctum');

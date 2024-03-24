@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Middleware\HasUser;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,11 @@ Route::controller(ProfileController::class)->group(function () {
     
     Route::get('/profile', 'UserProfile')->middleware('auth:sanctum');
     Route::post('/update-profile', 'UpdateProfile')->middleware('auth:sanctum');
+});
+
+Route::controller(TestimonialController::class)->group(function () {
+    Route::get('/all-testimonial', 'GetTestimonial');
+    Route::post('/store-testimonial', 'StoreTestimonial')->middleware('auth:sanctum');
+    Route::post('/delete-testimonial', 'DeleteTestimonial')->middleware('auth:sanctum');
+    Route::post('/update-testimonial', 'UpdateTestimonial')->middleware('auth:sanctum');
 });

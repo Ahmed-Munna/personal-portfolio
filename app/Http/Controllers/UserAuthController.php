@@ -36,7 +36,7 @@ class UserAuthController extends Controller
             $userId = User::latest()->first()->id;
             Profile::create([ 'user_id' =>  $userId]);
                          
-            return response()->json(["status" => "success", "message" => "User creation successful", "token" => $token]);
+            return response()->json(["status" => "success", "message" => "User creation successful", "token" => $token], 201);
         } catch (Exception $ex) {
 
             Log::alert("alert message", ["message" => $ex->getMessage(), "Date" => time()]);

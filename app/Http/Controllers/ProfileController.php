@@ -82,4 +82,6 @@ class ProfileController extends Controller
             return response()->json(["status" => "faild", "message" => $ex->getMessage()]);
         }
     }
+
+    
 }

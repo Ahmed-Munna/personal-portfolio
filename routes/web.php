@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\WorkController;
@@ -53,3 +54,5 @@ Route::controller(WorkController::class)->group(function () {
     Route::post('/delete-work', 'DeleteWork')->middleware('auth:sanctum');
     Route::post('/update-work', 'UpdateWork')->middleware('auth:sanctum');
 });
+
+Route::post('/contact', SendMailController::class);

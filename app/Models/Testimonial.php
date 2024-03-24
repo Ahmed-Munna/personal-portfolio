@@ -13,6 +13,7 @@ class Testimonial extends Model
         'name',
         'comment',
         'company',
+        'url',
         'rating'
     ];
 }

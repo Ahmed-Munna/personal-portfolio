@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('comment', 500);
             $table->string('company', 100);
+            $table->string('url');
             $table->enum('rating', ['1', '2', '3', '4', '5']);
             $table->timestamps();
         });

@@ -28,6 +28,7 @@ class TestimonialController extends Controller
                 'name' => 'required | string | max:100',
                 'comment' => 'required | string | max:500',
                 'company' => 'required | string | max:100',
+                'url' => 'required | string',
                 'rating' => 'required | integer | min:1 | max:5',
             ]);
 
@@ -35,6 +36,7 @@ class TestimonialController extends Controller
                 'name' => $request->input('name'),
                 'comment' => $request->input('comment'),
                 'company' => $request->input('company'),
+                'url' => $request->input('url'),
                 'rating' => $request->input('rating'),
             ]);
 
@@ -70,6 +72,7 @@ class TestimonialController extends Controller
                 'name' => 'required | string | max:100',
                 'comment' => 'required | string | max:500',
                 'company' => 'required | string | max:100',
+                'url' => 'required | string',
                 'rating' => 'required | integer | min:1 | max:5',
             ]);
 
@@ -77,6 +80,7 @@ class TestimonialController extends Controller
                 'name' => $request->input('name'),
                 'comment' => $request->input('comment'),
                 'company' => $request->input('company'),
+                'url' => $request->input('url'),
                 'rating' => $request->input('rating'),
             ]);
 

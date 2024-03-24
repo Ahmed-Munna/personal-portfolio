@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\WorkController;
 use App\Http\Middleware\HasUser;
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +39,17 @@ Route::controller(ProfileController::class)->group(function () {
 });
 
 Route::controller(TestimonialController::class)->group(function () {
+
     Route::get('/all-testimonial', 'GetTestimonial');
     Route::post('/store-testimonial', 'StoreTestimonial')->middleware('auth:sanctum');
     Route::post('/delete-testimonial', 'DeleteTestimonial')->middleware('auth:sanctum');
     Route::post('/update-testimonial', 'UpdateTestimonial')->middleware('auth:sanctum');
+});
+
+Route::controller(WorkController::class)->group(function () {
+
+    Route::get('/all-work', 'GetWork');
+    Route::post('/store-work', 'StoreWork')->middleware('auth:sanctum');
+    Route::post('/delete-work', 'DeleteWork')->middleware('auth:sanctum');
+    Route::post('/update-work', 'UpdateWork')->middleware('auth:sanctum');
 });

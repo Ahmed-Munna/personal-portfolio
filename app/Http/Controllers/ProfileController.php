@@ -24,7 +24,7 @@ class ProfileController extends Controller
                 return response()->json(['error' => 'Profile not found'], 404);
             }
 
-            return response()->json([$profile], 200);
+            return response()->json(['status' => 'success', 'data' => $profile], 200);
 
         } catch (Exception $ex) {
 
@@ -53,16 +53,33 @@ class ProfileController extends Controller
             $imageName = $request->input('photo');
             $path = public_path('images').'/'.$imageName;
 
-            if ($request->input('photo') && file_exists($path)) {
+            if ($request->file('new_photo') && file_exists($path)) {
                 unlink($path);
-            }
 
-            $newImageName = time().'-'.$request->file('new_photo')->getClientOriginalName();
-            $request->file('new_photo')->move(public_path('images'), $newImageName);
+                $newImageName = time().'-'.$request->file('new_photo')->getClientOriginalName();
+                $request->file('new_photo')->move(public_path('images'), $newImageName);
+
+                Profile::where('user_id', Auth::user()->id)->update([
+                    'number' => $request->input('number'),
+                    'photo' => $newImageName,
+                    'about_me' => $request->input('about_me'),
+                    'cv_link' => $request->input('cv_link'),
+                    'github_link' => $request->input('github_link'),
+                    'linkedin_link' => $request->input('linkedin_link'),
+                    'twitter_link' => $request->input('twitter_link')
+                ]);
+
+                User::where('id', Auth::user()->id)->update([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email')
+                ]);
+    
+                return response()->json(["status" => "success", "message" => "Profile updated successfully"], 200);
+            }
 
             Profile::where('user_id', Auth::user()->id)->update([
                 'number' => $request->input('number'),
-                'photo' => $newImageName,
+                'photo' => $imageName,
                 'about_me' => $request->input('about_me'),
                 'cv_link' => $request->input('cv_link'),
                 'github_link' => $request->input('github_link'),
